@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { frasesDB } from '../db/index.js';
 class FraseService {
-  create({ phrase }) {
+  create({ phrase, response }) {
     const novaFrase = { 
       id: randomUUID(),
       phrase,

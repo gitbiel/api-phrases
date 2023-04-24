@@ -1,8 +1,7 @@
 
 import { frasesDB } from '../db/index.js';
-import frasesService from '../services/frases.service.js';
+import FraseService from '../services/frases.service.js';
 // import { randomIntFromInterval } from '../utils/index.js';
-
 
 class FraseController {
   create(request, response) {
@@ -22,7 +21,7 @@ class FraseController {
       return response.status(400).send('"phrase" precisa ter no minimo 3 caracteres')
     }
 
-    return frasesService.create({phrase})
+    return FraseService.create({phrase, response})
   }
 
   list(_request, response) {
