@@ -1,4 +1,4 @@
-export const frases = [
+export const frasesDB = [
   {
     id: '513d6e9c-a908-45d0-8c64-0e2fe9860dff',
     phrase: 'dad has a cap' 
