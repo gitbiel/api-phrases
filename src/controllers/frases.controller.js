@@ -64,9 +64,14 @@ class FraseController {
   }
 
   updateById(request, response){
-    //1º Pegar da request os insumos para atualizar uma frase
+    const result = FraseService.update({
+      phraseId: request.params.id,
+      phrase: request.body.phrase,
+    })
 
-    // 2º passar para o service aquilo que precisa para atualizar
+    if(result?.isError) {
+      return response.status(400).json({ message: result.message });
+    }
 
     // 3º devolver a response seja ela sucesso ou erro
 
