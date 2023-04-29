@@ -73,47 +73,18 @@ class FraseController {
       return response.status(400).json({ message: result.message });
     }
 
-    // 3º devolver a response seja ela sucesso ou erro
-
-    const indexPhrase = frasesDB.findIndex(({ id }) => id === request.params.id);
-
-    if(indexPhrase === -1) {
-      return response.status(404).json({
-        message: 'Phrase não encontrada!'
-      });
-    };
-
-    const { phrase } = request.body;
-
-    if(!phrase) {
-      return response.status(400).send('"phrase": é obrigatório')
-    }
-    
-    if(typeof phrase !== 'string') {
-      return response.status(404).json({
-        message: 'phrase precisa ser string',
-      });
-    }
-    
-    if(phrase.length < 3) {
-      return response.status(400).send('"phrase" precisa ter no minimo 3 caracteres')
-    }
-
-    frasesDB[indexPhrase].phrase = phrase
-
-    return response.json({ message: 'Phrase atualizada com sucesso!'});
+    return response.json({ message: 'Frase atualizada com sucesso!'});
   }
 
   deleteById(request, response) {
-    const indexPhrase = frasesDB.findIndex(({ id }) => id === request.params.id);
+    const result = FraseService.delete({
+      phraseId: request.params.id
+    });
 
-    if(indexPhrase === -1) {
-      return response.status(404).json({
-        message: 'Phrase não encontrada'
-      });
-    };
+    if(result?.isError) {
+      return response.status(400).json({ message: result.message });
+    }
 
-    frasesDB.splice(indexPhrase, 1);
     return response.json({ message: 'Phrase deletada com sucesso!'});
   }
 }
