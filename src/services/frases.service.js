@@ -21,8 +21,17 @@ class FraseService {
     return 'Frase cadastrada com sucesso!';
   }
 
-  update({ id, phrase }) {
-    return { phrase }
+  delete({phraseId}) {
+    const indexPhrase = frasesDB.findIndex(({ id }) => id === phraseId);
+
+    if(indexPhrase === -1) {
+      return {
+        isError: true,
+        message: 'Phrase não encontrada'
+      };
+    };
+
+    frasesDB.splice(indexPhrase, 1);
   }
 }
 export default new FraseService()
