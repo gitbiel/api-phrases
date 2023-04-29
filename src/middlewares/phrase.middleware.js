@@ -1,5 +1,5 @@
 // Validate
-export function createPhraseMiddleware(request, response, next) {
+export function validatePhraseMiddleware(request, response, next) {
   // Executar a lógica do middleware aqui
 
   const { phrase } = request.body;
@@ -10,7 +10,7 @@ export function createPhraseMiddleware(request, response, next) {
   
   if(typeof phrase !== 'string') {
     return response.status(404).json({
-      message: 'Necessário cadastrar todos os dados: nome, telefone e cpf',
+      message: 'phrase deve ser uma string',
     });
   }
   
@@ -21,3 +21,4 @@ export function createPhraseMiddleware(request, response, next) {
   // Chamar a função next() para passar o controle para o próximo middleware
   next();
 }
+
