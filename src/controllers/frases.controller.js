@@ -1,32 +1,17 @@
 
 import { frasesDB } from '../db/index.js';
 import FraseService from '../services/frases.service.js';
-// import { randomIntFromInterval } from '../utils/index.js';
 
 class FraseController {
   create(request, response) {
     const { phrase } = request.body;
-    
-    if(!phrase) {
-      return response.status(400).send('"phrase": é obrigatório')
-    }
-    
-    if(typeof phrase !== 'string') {
-      return response.status(404).json({
-        message: 'Necessário cadastrar todos os dados: nome, telefone e cpf',
-      });
-    }
-    
-    if(phrase.length < 3) {
-      return response.status(400).send('"phrase" precisa ter no minimo 3 caracteres')
-    }
-
-    return FraseService.create({phrase, response})
+    const phraseCreated = FraseService.create({ phrase });
+    return response.json(phraseCreated)
   }
 
   list(_request, response) {
-    response.send(200, frases);
-  }  
+    response.send(200, frasesDB);
+  }  FraseController
 
   randomPhrases(_request, response) {
     function randomIntFromInterval(min, max) { // min and max included 
@@ -74,6 +59,12 @@ class FraseController {
   }
 
   updateById(request, response){
+    //1º Pegar da request os insumos para atualizar uma frase
+
+    // 2º passar para o service aquilo que precisa para atualizar
+
+    // 3º devolver a response seja ela sucesso ou erro
+
     const indexPhrase = frasesDB.findIndex(({ id }) => id === request.params.id);
 
     if(indexPhrase === -1) {
@@ -98,7 +89,7 @@ class FraseController {
       return response.status(400).send('"phrase" precisa ter no minimo 3 caracteres')
     }
 
-    frases[indexPhrase].phrase = phrase
+    frasesDB[indexPhrase].phrase = phrase
 
     return response.json({ message: 'Phrase atualizada com sucesso!'});
   }
@@ -115,7 +106,6 @@ class FraseController {
     frasesDB.splice(indexPhrase, 1);
     return response.json({ message: 'Phrase deletada com sucesso!'});
   }
-  
 }
 
-export default new FraseController();
+export default new FraseController()

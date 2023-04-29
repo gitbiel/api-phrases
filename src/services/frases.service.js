@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { frasesDB } from '../db/index.js';
 class FraseService {
-  create({ phrase, response }) {
+  create({ phrase }) {
     const novaFrase = { 
       id: randomUUID(),
       phrase,
@@ -11,15 +11,18 @@ class FraseService {
     );
 
     if(fraseEncontrada) {
-      return response.status(400).json({
+      throw new Error({
         message: 'Frase já existe!',
         detalhes: 'Phrase já cadastrada',
       });
     }
     
     frasesDB.push(novaFrase)
-    return response.status(201).send('Frase cadastrada com sucesso!');
+    return 'Frase cadastrada com sucesso!';
+  }
+
+  update({ id, phrase }) {
+    return { phrase }
   }
 }
-
 export default new FraseService()
