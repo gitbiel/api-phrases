@@ -11,10 +11,10 @@ class FraseService {
     );
 
     if(fraseEncontrada) {
-      throw new Error({
+      return {
+        isError: true,
         message: 'Frase já existe!',
-        detalhes: 'Phrase já cadastrada',
-      });
+      }
     }
     
     frasesDB.push(novaFrase)
