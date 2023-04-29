@@ -5,8 +5,13 @@ import FraseService from '../services/frases.service.js';
 class FraseController {
   create(request, response) {
     const { phrase } = request.body;
-    const phraseCreated = FraseService.create({ phrase });
-    return response.json(phraseCreated)
+    const result = FraseService.create({ phrase });
+
+    if(result?.isError) {
+      return response.status(400).json({ message: result.message });
+    }
+
+    return response.status(201).json('Frase cadastrada com sucesso!')
   }
 
   list(_request, response) {
