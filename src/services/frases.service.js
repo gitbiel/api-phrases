@@ -18,7 +18,19 @@ class FraseService {
     }
     
     frasesDB.push(novaFrase)
-    return 'Frase cadastrada com sucesso!';
+  }
+
+  update({ phraseId, phrase }) {
+    const indexPhrase = frasesDB.findIndex(({ id }) => id === phraseId);
+
+    if(indexPhrase === -1) {
+      return {
+        isError: true,
+        message: 'Frase não existe',
+      }
+    };
+
+    frasesDB[indexPhrase].phrase = phrase;
   }
 
   delete({phraseId}) {
