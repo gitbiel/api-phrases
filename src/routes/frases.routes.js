@@ -7,7 +7,6 @@ const routes = Router();
 
 routes.post('/', authenticationMiddleware, validatePhraseMiddleware, FraseController.create);
 routes.get('/', FraseController.list);
-routes.get('/random-phrases', FraseController.randomPhrases);
 routes.get('/:id',FraseController.listById);
 routes.put('/:id', validatePhraseMiddleware, FraseController.updateById);
 routes.delete('/:id', authenticationMiddleware, FraseController.deleteById);

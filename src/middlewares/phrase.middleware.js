@@ -8,12 +8,6 @@ export function validatePhraseMiddleware(request, response, next) {
     return response.status(400).send('"phrase": é obrigatório')
   }
   
-  if(typeof phrase !== 'string') {
-    return response.status(404).json({
-      message: 'phrase deve ser uma string',
-    });
-  }
-  
   if(phrase.length < 3) {
     return response.status(400).send('"phrase" precisa ter no minimo 3 caracteres')
   }

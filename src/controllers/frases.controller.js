@@ -18,38 +18,6 @@ class FraseController {
     response.send(200, frasesDB);
   }  
 
-  randomPhrases(_request, response) {
-    function randomIntFromInterval(min, max) { // min and max included 
-      return Math.floor(Math.random() * (max - min + 1) + min);
-    } 
-
-    if(frasesDB.length > 3) {
-      const numerosSorteados = [];
-      const frasesAleatorias = [];
-      let count = 0
-      while (numerosSorteados.length < 3) {
-        const numeroSorteado = randomIntFromInterval(0, frasesDB.length - 1);
-        count++
-        if(!numerosSorteados.includes(numeroSorteado)) {
-          const frasesAleatoria = frases[numeroSorteado];
-  
-          numerosSorteados.push(numeroSorteado);
-          frasesAleatorias.push(frasesAleatoria)
-        }
-      }
-        response.send(200, frasesAleatorias);
-        return response.status(201).send('Listagem com sucesso!');
-    }
-  
-    if(frasesDB.length <= 3 && frasesDB.length > 0) {
-      return response.send(200, frases);
-    }
-    
-    if(frasesDB.length === 0 ) {
-      return response.send(200, frasesDB);
-    }
-  }
-
   listById(request, response) {
     const result = FraseService.listById({
       fraseId: request.params.id
