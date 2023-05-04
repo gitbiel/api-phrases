@@ -20,6 +20,21 @@ class FraseService {
     frasesDB.push(novaFrase)
   }
 
+  listById({fraseId}) {
+    const fraseEncontrada = frasesDB.find((frase) => frase.id === fraseId);
+  
+    if(!fraseEncontrada) {
+      return {
+        isError: true,
+        message: 'frase não encontrada!'
+      };
+    };
+
+    return {
+      fraseEncontrada
+    }
+  }
+
   update({ phraseId, phrase }) {
     const indexPhrase = frasesDB.findIndex(({ id }) => id === phraseId);
 

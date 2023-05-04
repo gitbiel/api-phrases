@@ -16,7 +16,7 @@ class FraseController {
 
   list(_request, response) {
     response.send(200, frasesDB);
-  }  FraseController
+  }  
 
   randomPhrases(_request, response) {
     function randomIntFromInterval(min, max) { // min and max included 
@@ -51,16 +51,15 @@ class FraseController {
   }
 
   listById(request, response) {
-    const { id } = request.params;
-    const fraseEncontrada = frasesDB.find((frase) => frase.id === id);
-  
-    if(!fraseEncontrada) {
-      return response.status(404).json({
-        message: 'frase não encontrada!'
-      })
+    const result = FraseService.listById({
+      fraseId: request.params.id
+    });
+
+    if(result?.isError) {
+      return response.status(404).json({ message: result.message });
     }
-  
-    return response.json(fraseEncontrada);
+
+    return response.json(result.fraseEncontrada);
   }
 
   updateById(request, response){
