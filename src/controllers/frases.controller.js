@@ -15,7 +15,7 @@ class FraseController {
   }
 
   list(_request, response) {
-    response.send(200, frasesDB);
+    response.status(200).send(frasesDB);
   }  
 
   listById(request, response) {
@@ -39,8 +39,8 @@ class FraseController {
     if(result?.isError) {
       return response.status(400).json({ message: result.message });
     }
-
-    return response.json({ message: 'Frase atualizada com sucesso!'});
+    // 204 não envia nada para a response
+    return response.status(204).send()
   }
 
   deleteById(request, response) {
@@ -52,7 +52,7 @@ class FraseController {
       return response.status(400).json({ message: result.message });
     }
 
-    return response.json({ message: 'Phrase deletada com sucesso!'});
+    return response.status(204).send()
   }
 }
 
