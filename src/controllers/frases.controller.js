@@ -1,33 +1,36 @@
-
-import { frasesDB } from '../db/index.js';
 import FraseService from '../services/frases.service.js';
-
 class FraseController {
-  create(request, response) {
+  
+ async create(request, response) {
     const { phrase } = request.body;
-    const result = FraseService.create({ phrase });
-
-    if(result?.isError) {
-      return response.status(400).json({ message: result.message });
+    try {
+      await FraseService.create({ phrase });
+      return response.status(204).send();
+    } catch (error) {
+      return response.status(404).json({ message: error.message });
     }
-
-    return response.status(201).json('Frase cadastrada com sucesso!')
   }
 
-  list(_request, response) {
-    response.status(200).send(frasesDB);
+  async list(_request, response) {
+    try {
+      const result = await FraseService.list();
+  
+      return response.json(result);
+     } catch (error) {
+      return response.status(404).json({ message: error.message });
+     }
   }  
 
-  listById(request, response) {
-    const result = FraseService.listById({
+  async listById(request, response) {
+   try {
+    const result = await FraseService.listById({
       fraseId: request.params.id
     });
 
-    if(result?.isError) {
-      return response.status(404).json({ message: result.message });
-    }
-
-    return response.json(result.fraseEncontrada);
+    return response.json(result);
+   } catch (error) {
+    return response.status(404).json({ message: error.message });
+   }
   }
 
   updateById(request, response){
