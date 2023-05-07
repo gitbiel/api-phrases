@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import { frasesRoutes } from './frases.routes.js';
+import { phrasesRoutes } from './phrases.routes.js';
 
 const routes = Router();
 
-routes.use('/phrase', frasesRoutes);
+routes.use('/phrase', phrasesRoutes);
 
 export { routes };

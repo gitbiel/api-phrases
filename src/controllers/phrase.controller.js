@@ -1,10 +1,10 @@
-import FraseService from '../services/frases.service.js';
-class FraseController {
+import PhraseService from '../services/phrase.service.js';
+class PhraseController {
   
  async create(request, response) {
     const { phrase } = request.body;
     try {
-      await FraseService.create({ phrase });
+      await PhraseService.create({ phrase });
       return response.status(204).send();
     } catch (error) {
       return response.status(404).json({ message: error.message });
@@ -13,7 +13,7 @@ class FraseController {
 
   async list(_request, response) {
     try {
-      const result = await FraseService.list();
+      const result = await PhraseService.list();
   
       return response.json(result);
      } catch (error) {
@@ -23,7 +23,7 @@ class FraseController {
 
   async listById(request, response) {
    try {
-    const result = await FraseService.listById({
+    const result = await PhraseService.listById({
       fraseId: request.params.id
     });
 
@@ -34,7 +34,7 @@ class FraseController {
   }
 
   updateById(request, response){
-    const result = FraseService.update({
+    const result = PhraseService.update({
       phraseId: request.params.id,
       phrase: request.body.phrase,
     })
@@ -47,7 +47,7 @@ class FraseController {
   }
 
   deleteById(request, response) {
-    const result = FraseService.delete({
+    const result = PhraseService.delete({
       phraseId: request.params.id
     });
 
@@ -59,4 +59,4 @@ class FraseController {
   }
 }
 
-export default new FraseController()
+export default new PhraseController();
