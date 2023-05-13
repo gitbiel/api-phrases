@@ -1,7 +1,6 @@
 import sqlite3 from 'sqlite3';
 import { randomUUID } from 'crypto';
-import path, { resolve } from 'path';
-import { rejects } from 'assert';
+import path from 'path';
 
 const dbPath = path.resolve(new URL(import.meta.url).pathname, '../phrases_db');
 
@@ -26,6 +25,10 @@ class PhraseRepository {
     })
   }
 
+  /**
+   * 
+   * @returns {Promise<{id: string, phrase: string}[]>}
+   */
   async list() {
     return new Promise((resolve, reject) => {
       this.db.all('SELECT * FROM phrases', (err, rows) => {
@@ -38,6 +41,11 @@ class PhraseRepository {
     });
   }
 
+  /**
+   * 
+   * @param {*} param0 
+   * @returns { Promise<{id: string, phrase: string}>}
+   */
   async listById({ phraseId }) {
     return new Promise((resolve, reject) => {
 
@@ -79,7 +87,21 @@ class PhraseRepository {
     })
   }
 
-  delete() {}
+  /**
+   * 
+   * @param {{ phraseId: string}} param0
+   */
+  async delete({ phraseId }) {
+    
+    return new Promise((resolve, reject ) => {
+      this.db.run('DELETE FROM phrases WHERE id = ?', phraseId, (err) => {
+        if(err) {
+          reject(err)
+        }
+        resolve()
+      })
+    })
+  }
 }
 
 export default new PhraseRepository()
