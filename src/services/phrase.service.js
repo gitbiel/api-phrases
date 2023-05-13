@@ -1,5 +1,4 @@
 
-import { frasesDB } from '../db/index.js';
 import PhraseRepository from '../repositories/phrase.repository.js'
 
 class PhraseService {
@@ -33,17 +32,16 @@ class PhraseService {
     }
   }
 
-  update({ phraseId, phrase }) {
-    const indexPhrase = frasesDB.findIndex(({ id }) => id === phraseId);
+  async update({ phrase, phraseId }) {
+    const phraseEncontrada = await PhraseRepository.update({ phrase, phraseId })
 
-    if(indexPhrase === -1) {
+
+    if(!phraseEncontrada) {
       return {
         isError: true,
         message: 'Frase não existe',
       }
     };
-
-    frasesDB[indexPhrase].phrase = phrase;
   }
 
   delete({ phraseId }) {

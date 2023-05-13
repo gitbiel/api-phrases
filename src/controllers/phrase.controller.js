@@ -33,17 +33,15 @@ class PhraseController {
    }
   }
 
-  updateById(request, response){
-    const result = PhraseService.update({
-      phraseId: request.params.id,
-      phrase: request.body.phrase,
-    })
-
-    if(result?.isError) {
-      return response.status(400).json({ message: result.message });
+  async updateById(request, response) {
+    try {
+      const { phrase } = request.body;
+      const  { phraseId } = request.params.id;
+      await PhraseService.update({ phrase, phraseId })
+      return response.status(204).send()
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
     }
-    // 204 não envia nada para a response
-    return response.status(204).send()
   }
 
   deleteById(request, response) {

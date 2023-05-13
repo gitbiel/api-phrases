@@ -1,6 +1,7 @@
 import sqlite3 from 'sqlite3';
 import { randomUUID } from 'crypto';
-import path from 'path';
+import path, { resolve } from 'path';
+import { rejects } from 'assert';
 
 const dbPath = path.resolve(new URL(import.meta.url).pathname, '../phrases_db');
 
@@ -66,7 +67,17 @@ class PhraseRepository {
     });
   }
 
-  update() {}
+  async update({ phrase, phraseId }) {
+    return new Promise((resolve, reject ) => {
+      this.db.run('UPDATE phrases SET phrase=? WHERE "id"=?', [phrase, phraseId], (err, row) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(row);
+        }
+      })
+    })
+  }
 
   delete() {}
 }
