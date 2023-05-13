@@ -1,4 +1,3 @@
-
 import PhraseRepository from '../repositories/phrase.repository.js'
 
 class PhraseService {
@@ -14,27 +13,24 @@ class PhraseService {
 
   async list() {
     try {
-      return await PhraseRepository.list()
+      return await PhraseRepository.list();
     } catch (error) {
-      throw new Error(error.message)
+      throw error
     }
   }
-
   
   async listById({fraseId}) {
     try {
-      const result = await PhraseRepository.listById({ phraseId: fraseId })
-  
+      const result = await PhraseRepository.listById({ phraseId: fraseId });
+
       return { phrase: result.phrase}
-    
     } catch (error) {
-      throw new Error(error.message)
+      throw error
     }
   }
 
   async update({ phrase, phraseId }) {
     const phraseEncontrada = await PhraseRepository.update({ phrase, phraseId })
-
 
     if(!phraseEncontrada) {
       return {
@@ -44,17 +40,13 @@ class PhraseService {
     };
   }
 
-  delete({ phraseId }) {
-    const indexPhrase = frasesDB.findIndex(({ id }) => id === phraseId);
-
-    if(indexPhrase === -1) {
-      return {
-        isError: true,
-        message: 'Phrase não encontrada'
-      };
-    };
-
-    frasesDB.splice(indexPhrase, 1);
+  async delete({ phraseId }) {
+    try {
+      await PhraseRepository.listById({ phraseId });
+      return await PhraseRepository.delete({ phraseId});
+    } catch (error) {
+      throw error
+    }
   }
 }
 export default new PhraseService();
