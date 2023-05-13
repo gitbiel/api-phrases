@@ -1,6 +1,11 @@
 import PhraseService from '../services/phrase.service.js';
 class PhraseController {
-  
+/**
+ *
+ * @param { { body: { phrase: string } } } request
+ * @param { { body: { phrase: string } } } response
+ * @returns { Promise<void> }
+ */
  async create(request, response) {
     const { phrase } = request.body;
     try {
@@ -36,24 +41,25 @@ class PhraseController {
   async updateById(request, response) {
     try {
       const { phrase } = request.body;
-      const  { phraseId } = request.params.id;
-      await PhraseService.update({ phrase, phraseId })
+      const { id: phraseId } = request.params;
+
+      await PhraseService.update({ phrase, phraseId });
       return response.status(204).send()
     } catch (error) {
       return response.status(400).json({ message: error.message });
     }
   }
 
-  deleteById(request, response) {
-    const result = PhraseService.delete({
-      phraseId: request.params.id
-    });
+  async deleteById(request, response) {
+    try {
+      await PhraseService.delete({
+        phraseId: request.params.id
+      });
 
-    if(result?.isError) {
-      return response.status(400).json({ message: result.message });
+      return response.status(204).send()
+    } catch (error) {
+      return response.status(400).json({ message: error.message });
     }
-
-    return response.status(204).send()
   }
 }
 
