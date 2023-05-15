@@ -79,8 +79,10 @@ PRAGMA table_info(nome_table);
 ```
 
 ### Mostrando todas as tabelas (show tables)
-```
+```sql
 SELECT name FROM sqlite_master WHERE type='table';
+
+SELECT count(id) FROM phrases;
 ```
 =============================================
 
