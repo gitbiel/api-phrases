@@ -21,28 +21,41 @@ class PhraseService {
   
   async listById({fraseId}) {
     try {
-      const result = await PhraseRepository.listById({ phraseId: fraseId });
+      const phraseExist = await PhraseRepository.listById({ phraseId: fraseId });
 
-      return { phrase: result.phrase}
+      if(!phraseExist) {
+        throw new Error('phrase não encontrada')
+      }
+
+      return { phrase: phraseExist.phrase}
     } catch (error) {
       throw error
     }
   }
 
   async update({ phrase, phraseId }) {
-    const phraseEncontrada = await PhraseRepository.update({ phrase, phraseId })
+    try {
+      const phraseExist = await PhraseRepository.listById({ phraseId });
 
-    if(!phraseEncontrada) {
-      return {
-        isError: true,
-        message: 'Frase não existe',
+      if(!phraseExist) {
+        throw new Error('phrase não encontrada')
       }
-    };
+      
+      return await PhraseRepository.update({ phrase, phraseId })
+    } catch (error) {
+      throw error
+    }
+
   }
 
   async delete({ phraseId }) {
     try {
-      await PhraseRepository.listById({ phraseId });
+      const phraseExist = await PhraseRepository.listById({ phraseId });
+
+      if(!phraseExist) {
+        throw new Error('phrase não encontrada')
+      }
+
       return await PhraseRepository.delete({ phraseId});
     } catch (error) {
       throw error

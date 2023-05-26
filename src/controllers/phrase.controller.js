@@ -7,9 +7,10 @@ class PhraseController {
  * @returns { Promise<void> }
  */
  async create(request, response) {
-    const { phrase } = request.body;
-    try {
+   try {
+      const { phrase } = request.body;
       await PhraseService.create({ phrase });
+      
       return response.status(204).send();
     } catch (error) {
       return response.status(404).json({ message: error.message });

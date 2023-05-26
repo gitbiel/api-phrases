@@ -52,9 +52,7 @@ class PhraseRepository {
       this.db.get('SELECT * FROM phrases WHERE id = ?', phraseId, (err, row) => {
         if (err) {
           reject(err);
-        } else if(!row ){
-          reject({ message: 'phrase não encontrada'});
-        } else {
+        }  else {
           resolve(row);
         }
       });
