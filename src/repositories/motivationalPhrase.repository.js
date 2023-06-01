@@ -36,6 +36,20 @@ class MotivationalPhrasesRepository {
       })
     })
   }
+
+  async sentenceAlreadyExists({ motivationalPhrase }) {
+    return new Promise((resolve, reject) => {
+
+      this.db.get('SELECT * FROM motivationalPhrases WHERE phrase = ?', motivationalPhrase, (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
+      
+    });
+  }
   
 }
 

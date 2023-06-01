@@ -2,9 +2,9 @@ import PhraseRepository from '../repositories/phrase.repository.js'
 
 class PhraseService {
   async create({ phrase, priority }) {
-    const phraseEncontrada = await PhraseRepository.listByPhrase({ phrase })
+    const phraseAlreadyFound = await PhraseRepository.sentenceAlreadyExists({ phrase })
   
-    if(phraseEncontrada) {
+    if(phraseAlreadyFound) {
       throw new Error('Frase já existe!');
     }
 

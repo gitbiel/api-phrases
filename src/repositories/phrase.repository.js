@@ -59,7 +59,7 @@ class PhraseRepository {
       
     });
   }
-  async listByPhrase({ phrase }) {
+  async sentenceAlreadyExists({ phrase }) {
     return new Promise((resolve, reject) => {
 
       this.db.get('SELECT * FROM phrases WHERE phrase = ?', phrase, (err, row) => {
