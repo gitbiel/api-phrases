@@ -2,10 +2,18 @@
 export function validatePhraseMiddleware(request, response, next) {
   // Executar a lógica do middleware aqui
 
-  const { phrase } = request.body;
+  const { phrase, priority } = request.body;
 
   if(!phrase) {
     return response.status(400).send('"phrase": é obrigatório')
+  }
+
+  if(!priority) {
+    return response.status(400).send('"priority": é obrigatório')
+  }
+
+  if(priority !== "low" && priority !== "medium" && priority !== "high") {
+    return response.status(400).send('priority é necessário ser low, medium ou high')
   }
   
   if(phrase.length < 3) {
