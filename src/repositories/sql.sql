@@ -1,0 +1,5 @@
+-- Active: 1685466881415@@127.0.0.1@3306
+
+CREATE TABLE phrases (id TEXT NOT NULL PRIMARY KEY, phrase TEXT NOT NULL, priority TEXT NOT NULL)
+
+-- DROP TABLE phrases

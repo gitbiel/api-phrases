@@ -1,14 +1,14 @@
 import PhraseRepository from '../repositories/phrase.repository.js'
 
 class PhraseService {
-  async create({ phrase }) {
+  async create({ phrase, priority }) {
     const phraseEncontrada = await PhraseRepository.listByPhrase({ phrase })
   
     if(phraseEncontrada) {
       throw new Error('Frase já existe!');
     }
 
-    return await PhraseRepository.create({ phrase })
+    return await PhraseRepository.create({ phrase, priority })
   }
 
   async list() {

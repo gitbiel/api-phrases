@@ -9,12 +9,12 @@ class PhraseRepository {
     this.db = new sqlite3.Database(dbPath);
   }
 
-  async create({ phrase }) {
+  async create({ phrase, priority }) {
     return new Promise((resolve , reject) => {
 
       const id = randomUUID();
 
-      this.db.run('INSERT INTO phrases VALUES(?, ?)', [id, phrase], (err) => {
+      this.db.run('INSERT INTO phrases VALUES(?, ?, ?)', [id, phrase, priority], (err) => {
         if (err) {
           reject(err);
         } else {

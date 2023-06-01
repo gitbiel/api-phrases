@@ -8,8 +8,8 @@ class PhraseController {
  */
  async create(request, response) {
    try {
-      const { phrase } = request.body;
-      await PhraseService.create({ phrase });
+      const { phrase, priority } = request.body;
+      await PhraseService.create({ phrase, priority });
       
       return response.status(204).send();
     } catch (error) {
