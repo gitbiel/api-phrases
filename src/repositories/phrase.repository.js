@@ -48,8 +48,20 @@ class PhraseRepository {
    */
   async listById({ phraseId }) {
     return new Promise((resolve, reject) => {
-
       this.db.get('SELECT * FROM phrases WHERE id = ?', phraseId, (err, row) => {
+        if (err) {
+          reject(err);
+        }  else {
+          resolve(row);
+        }
+      });
+      
+    });
+  }
+
+  async listByPriority({ priority }) {
+    return new Promise((resolve, reject) => {
+      this.db.get('SELECT * FROM phrases WHERE priority = ?', priority, (err, row) => {
         if (err) {
           reject(err);
         }  else {

@@ -29,15 +29,27 @@ class PhraseController {
 
   async listById(request, response) {
    try {
-    const result = await PhraseService.listById({
-      fraseId: request.params.id
-    });
+      const result = await PhraseService.listById({
+        fraseId: request.params.id
+      });
 
-    return response.json(result);
-   } catch (error) {
-    return response.status(404).json({ message: error.message });
-   }
+      return response.json(result);
+    } catch (error) {
+      return response.status(404).json({ message: error.message });
+    }
   }
+
+  async listByPriority(request, response) {
+    try {
+     const result = await PhraseService.listByPriority({
+       priority: request.params.id
+     });
+ 
+     return response.json(result);
+    } catch (error) {
+     return response.status(404).json({ message: error.message });
+    }
+   }
 
   async updateById(request, response) {
     try {

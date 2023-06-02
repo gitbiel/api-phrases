@@ -33,6 +33,20 @@ class PhraseService {
     }
   }
 
+  async listByPriority({ priority }) {
+    try {
+      const phraseExist = await PhraseRepository.listByPriority({ priority });
+
+      if(!phraseExist) {
+        throw new Error('phrase não encontrada')
+      }
+
+      return { phrase: phraseExist}
+    } catch (error) {
+      throw error
+    }
+  }
+
   async update({ phrase, phraseId }) {
     try {
       const phraseExist = await PhraseRepository.listById({ phraseId });
