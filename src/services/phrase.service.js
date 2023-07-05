@@ -47,7 +47,7 @@ class PhraseService {
     }
   }
 
-  async update({ phrase, phraseId }) {
+  async update({ phrase, priority, phraseId }) {
     try {
       const phraseExist = await PhraseRepository.listById({ phraseId });
 
@@ -55,7 +55,7 @@ class PhraseService {
         throw new Error('phrase não encontrada')
       }
       
-      return await PhraseRepository.update({ phrase, phraseId })
+      return await PhraseRepository.update({ phrase, priority, phraseId })
     } catch (error) {
       throw error
     }

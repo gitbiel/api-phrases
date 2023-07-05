@@ -85,9 +85,9 @@ class PhraseRepository {
     });
   }
 
-  async update({ phrase, phraseId }) {
+  async update({ phrase, priority, phraseId }) {
     return new Promise((resolve, reject ) => {
-      this.db.run('UPDATE phrases SET phrase=? WHERE "id"=?', [phrase, phraseId], (err, row) => {
+      this.db.run('UPDATE phrases SET phrase=?, priority = ? WHERE "id"=?', [phrase, priority, phraseId], (err, row) => {
         if (err) {
           reject(err)
         } else {

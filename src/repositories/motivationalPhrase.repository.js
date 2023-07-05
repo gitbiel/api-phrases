@@ -2,7 +2,7 @@ import sqlite3 from 'sqlite3';
 import path from 'path';
 import { randomUUID } from 'crypto';
 
-const dbPath = path.resolve(new URL(import.meta.url).pathname, '../motivationalPhrases_db');
+const dbPath = path.resolve(new URL(import.meta.url).pathname, '..', 'motivationalPhrases_db');
 
 class MotivationalPhrasesRepository {
   constructor() {

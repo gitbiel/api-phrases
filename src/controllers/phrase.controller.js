@@ -53,10 +53,10 @@ class PhraseController {
 
   async updateById(request, response) {
     try {
-      const { phrase } = request.body;
+      const { phrase, priority } = request.body;
       const { id: phraseId } = request.params;
 
-      await PhraseService.update({ phrase, phraseId });
+      await PhraseService.update({ phrase, priority, phraseId });
       return response.status(204).send()
     } catch (error) {
       return response.status(400).json({ message: error.message });
